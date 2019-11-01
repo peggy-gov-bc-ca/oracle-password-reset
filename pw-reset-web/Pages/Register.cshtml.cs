@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using pw_reset_web.Models;
-using pw_reset_web.Services;
 
 namespace pw_reset_web.Pages
 {
@@ -56,7 +55,8 @@ namespace pw_reset_web.Pages
                     if (result.resultCode == ResultCode.SUCCESS)
                     {
                         HttpContext.Session.Set("_msg", Encoding.ASCII.GetBytes("You have been successfully registered for the Oracle DB Password Reset Service."));
-                        HttpContext.Session.Set("_username", null);
+                        byte[] bytes=null;
+                        HttpContext.Session.Set("_username", Encoding.ASCII.GetBytes(""));
                         return RedirectToPage("./Result");
                     }
                    

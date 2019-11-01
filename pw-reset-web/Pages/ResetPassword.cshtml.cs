@@ -8,7 +8,6 @@ using pw_reset_web.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using common;
-using pw_reset_web.Services;
 using System.Text;
 
 namespace pw_reset_web.Pages
@@ -59,7 +58,7 @@ namespace pw_reset_web.Pages
                     if (result.resultCode == ResultCode.SUCCESS)
                     {
                         HttpContext.Session.Set("_msg", Encoding.ASCII.GetBytes("Your Oracle Database Account Password has been changed!"));
-                        HttpContext.Session.Set("_username", null);
+                        HttpContext.Session.Set("_username", Encoding.ASCII.GetBytes(""));
                         return RedirectToPage("./Result");
                     }
                 }

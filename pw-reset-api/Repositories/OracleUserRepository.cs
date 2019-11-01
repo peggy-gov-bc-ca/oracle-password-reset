@@ -18,39 +18,7 @@ namespace pw_reset_api.Repositories
             this.configuration = _configuration;
         }
 
-        //public string GetUserCodeExpireTime(string username)
-        //{
-        //    string expireTime = null;
-        //    try
-        //    {
-        //        var dbConnection = this.GetConnection();
-        //        if (dbConnection.State == System.Data.ConnectionState.Closed)
-        //        {
-        //            dbConnection.Open();
-        //        }
-        //        if (dbConnection.State == System.Data.ConnectionState.Open)
-        //        {
-        //            using (OracleCommand cmd = dbConnection.CreateCommand())
-        //            {
-        //                cmd.CommandText = "SELECT * FROM " + "oracle_pwd_reset_users WHERE username=" + "'" + username + "'";
-        //                OracleDataReader reader = cmd.ExecuteReader();
-
-        //                while (reader.Read())
-        //                {
-        //                    expireTime = reader.GetString(4);
-        //                }
-        //                reader.Dispose();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //    return expireTime;
-        //}
-
-        public bool AddUserToRegister(UserRegisterInfo uri)
+         public bool AddUserToRegister(UserRegisterInfo uri)
         {
             try
             {
@@ -355,10 +323,10 @@ namespace pw_reset_api.Repositories
 
                         while (reader.Read())
                         {
-                            userResetPwdInfo.UserName = reader.GetString(1);
+                            userResetPwdInfo.UserName = reader.IsDBNull(1)? "": reader.GetString(1);
                             userResetPwdInfo.EmailAddr = reader.GetString(2);
-                            userResetPwdInfo.VerificationCode = reader.GetString(3);
-                            userResetPwdInfo.VerifyCodeExpiredTime = reader.GetString(4);
+                            userResetPwdInfo.VerificationCode = reader.IsDBNull(3) ? "": reader.GetString(3);
+                            userResetPwdInfo.VerifyCodeExpiredTime = reader.IsDBNull(4)? "": reader.GetString(4);
                             break;
                         }
                         reader.Dispose();
