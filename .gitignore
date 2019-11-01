@@ -1,0 +1,9 @@
+common/bin
+common/obj
+pw-reset-api/bin
+pw-reset-api/obj
+pw-reset-web/bin
+pw-reset-web/obj
+.vs
+
+
