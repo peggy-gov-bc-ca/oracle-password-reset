@@ -1,0 +1,45 @@
+﻿@page
+@model RegiserModel
+@{
+    ViewData["Title"] = "Register for Password Reset";
+}
+
+<h1 class="display-4">Register for Password Reset</h1>
+<div class="text-left">
+    <div class="row">
+        <div class="col-md-5">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group"
+                    <label class="control-label">
+                        Enter your current Oracle database username and password along with you desired recovery email address to register for password reset.
+                    </label>
+                    <br /><br />
+                    <label class="control-label">ORACLE DATABASE USERNAME</label>
+                    <input asp-for="userRegisterModel.UserName" class="form-control" />
+                    <span asp-validation-for="userRegisterModel.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userRegisterModel.OraclePwd" class="control-label">ORACLE DATABASE PASSWORD</label>
+                    <input asp-for="userRegisterModel.OraclePwd" type="password" class="form-control" />
+                    <span asp-validation-for="userRegisterModel.OraclePwd" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userRegisterModel.EmailAddr" class="control-label">RECOVERY EMAIL ADDRESS</label>
+                    <input asp-for="userRegisterModel.EmailAddr" class="form-control" />
+                    <span asp-validation-for="userRegisterModel.EmailAddr" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                    <a class="btn btn-default" asp-page="./Index">
+                        Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row text-danger">
+        <div class="col-md-5">
+            <label>@ViewData["Error"]</label>
+        </div>
+    </div>

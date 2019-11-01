@@ -1,0 +1,43 @@
+﻿@page
+@model VerifyModel
+@{
+    ViewData["Title"] = "Enter Verification Code";
+}
+
+
+<h1 class="display-4">Enter Verification Code</h1>
+<div class="text-left">
+   <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">
+                        A verification code has been sent to your recovery email address @Model.userVerifyModel.EmailAddr.<br />
+                        The emailed verification code will expire within 5 minutes of being sent.
+                    </label>
+                    <br /><br />
+                    <label asp-for="userVerifyModel.VerifyCode" class="control-label">
+                        VERIFICATION CODE
+                    </label>
+                    <input asp-for="userVerifyModel.VerifyCode" class="form-control" />
+                    <span asp-validation-for="userVerifyModel.VerifyCode" class="text-danger"></span>
+                    <input asp-for="userVerifyModel.UserName" class="form-control hidden" />
+                    <input asp-for="userVerifyModel.EmailAddr" class="form-control hidden" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Verify" class="btn btn-primary" />     
+                    <a class="btn btn-default" asp-page="./Index">
+                        Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+   <div class="row text-danger">
+       <div class="col-md-5">
+           <label>@ViewData["Error"]</label>
+       </div>
+   </div>
+
