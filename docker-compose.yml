@@ -32,6 +32,8 @@ services:
       - /home/oracle/oradata:/opt/oracle/oradata # persistent oracle database data.
     environment:
       ORACLE_PWD: F1abcd@test
+    networks: 
+      - pw-reset
     ports:
       - 1521:1521
       - 8000:8080
@@ -39,3 +41,4 @@ services:
 
 networks:
   pw-reset:
+    driver: "bridge"
