@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using pw_reset_api.Interfaces;
 using common;
 using pw_reset_api.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace pw_reset_api.Controllers
 {
@@ -14,17 +15,20 @@ namespace pw_reset_api.Controllers
     [ApiController]
     public class OracleUserController : ControllerBase
     {
+        private readonly ILogger _logger;
         IOracleUserRepository _oracleUserRepo;
 
-        public OracleUserController(IOracleUserRepository userRepo)
+        public OracleUserController(IOracleUserRepository userRepo, ILogger<OracleUserController> logger)
         {
             this._oracleUserRepo = userRepo;
+            this._logger = logger;
         }
 
         [Route("api/GetUserCodeExpireTime")]
         [HttpPost]
         public ActionResult GetUserCodeExpireTime(UserResetPwdInfo info)
         {
+            this._logger.LogDebug("GetUserCodeExpireTime");
             UserResetPwdInfo userResetPwdInfo= _oracleUserRepo.GetUserResetPwdInfo(info.UserName);
             return Ok(userResetPwdInfo.VerifyCodeExpiredTime);
         }
@@ -33,6 +37,7 @@ namespace pw_reset_api.Controllers
         [HttpPost]
         public ActionResult GetUserEmail(UserResetPwdInfo info)
         {
+            this._logger.LogDebug("GetUserEmail");
             UserResetPwdInfo userResetPwdInfo = _oracleUserRepo.GetUserResetPwdInfo(info.UserName);
             return Ok(userResetPwdInfo.EmailAddr);
         }
@@ -42,6 +47,7 @@ namespace pw_reset_api.Controllers
         [HttpPost]
         public ActionResult VerifyCode(UserVerifyInfo vInfo)
         {
+            this._logger.LogDebug("VerifyCode");
             UserResetPwdInfo info = new UserResetPwdInfo();
             info.UserName = vInfo.UserName;
             info.EmailAddr = vInfo.EmailAddr;
@@ -54,6 +60,7 @@ namespace pw_reset_api.Controllers
         [HttpPost]
         public ActionResult DoResetPwd(UserResetPwdInfo info)
         {
+            this._logger.LogDebug("DoResetPwd");
             ApiResult result = new ApiResult();
             //result = IsValidRequest(info);
             if ( result.resultCode == ResultCode.SUCCESS)
@@ -77,6 +84,7 @@ namespace pw_reset_api.Controllers
         [HttpPost]
         public ActionResult ResetPwd(UserEmailInfo usernameEmail)
         {
+            this._logger.LogDebug("ResetPwd");
             ApiResult result = new ApiResult(); 
             if (IsRegistered(usernameEmail.UserName))
             {
@@ -112,6 +120,7 @@ namespace pw_reset_api.Controllers
         [HttpPost]
         public ActionResult Register(UserRegisterInfo registerInfo)
         {
+            this._logger.LogDebug("Register");
             ApiResult result = new ApiResult();
             if (IsRegistered(registerInfo.UserName))
             {

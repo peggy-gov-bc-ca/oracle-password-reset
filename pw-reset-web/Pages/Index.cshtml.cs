@@ -18,7 +18,7 @@ namespace pw_reset_web.Pages
         private readonly ILogger _logger;
 
 
-        public IndexModel(ILogger<AboutModel> logger)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
@@ -48,10 +48,12 @@ namespace pw_reset_web.Pages
             {
                 client.BaseAddress = new Uri(Constants.API_BASE_URL);
                 UserEmailInfo usernameEmail = userEmailModel.ToInfo();
+                _logger.LogDebug("start post ResetPwd");
                 using (var response = await client.PostAsJsonAsync<UserEmailInfo>("ResetPwd", usernameEmail))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ApiResult>(apiResponse);
+                    _logger.LogDebug("ResetPwd returned result"+apiResponse);
                     if (result.resultCode == ResultCode.SUCCESS)
                     {
                         HttpContext.Session.Set("_username", Encoding.ASCII.GetBytes(usernameEmail.UserName));

@@ -6,16 +6,19 @@ using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using pw_reset_api.Interfaces;
 using common;
+using Microsoft.Extensions.Logging;
 
 namespace pw_reset_api.Repositories
 {
     public class OracleUserRepository : IOracleUserRepository
     {
         IConfiguration configuration;
+        ILogger _logger;
 
-        public OracleUserRepository(IConfiguration _configuration)
+        public OracleUserRepository(IConfiguration _configuration, ILogger<IOracleUserRepository> logger)
         {
             this.configuration = _configuration;
+            this._logger = logger;
         }
 
          public bool AddUserToRegister(UserRegisterInfo uri)
@@ -26,6 +29,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -44,11 +48,14 @@ namespace pw_reset_api.Repositories
                                              new OracleParameter("email",uri.EmailAddr)
                                       };
                             cmd.Parameters.AddRange(parameters);
+                            _logger.LogDebug("execute oracle cmd insert user");
                             int r = cmd.ExecuteNonQuery();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -56,6 +63,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
             return true;
@@ -70,6 +78,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -88,9 +97,11 @@ namespace pw_reset_api.Repositories
                             }
                             reader.Dispose();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -100,6 +111,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
         }
@@ -113,6 +125,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -134,9 +147,11 @@ namespace pw_reset_api.Repositories
                             }
                             reader.Dispose();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -146,6 +161,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
         }
@@ -159,6 +175,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -179,9 +196,11 @@ namespace pw_reset_api.Repositories
                             }
                             reader.Dispose();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -191,6 +210,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
         }
@@ -203,11 +223,14 @@ namespace pw_reset_api.Repositories
                 OracleConnection con = new OracleConnection();
                 con.ConnectionString ="User Id="+username+";Password="+password+";Data Source="+Constants.ORACLE_DATA_SOURCE;
                 con.Open();
+                _logger.LogInformation("oracle connection opened.");
                 result = true;
                 con.Close();
+                _logger.LogInformation("oracle connection closed.");
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return result;
             }
             return result;
@@ -221,6 +244,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -243,9 +267,11 @@ namespace pw_reset_api.Repositories
                             cmd.Parameters.AddRange(parameters);
                             int r = cmd.ExecuteNonQuery();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -253,6 +279,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
             return true;
@@ -266,6 +293,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -288,9 +316,11 @@ namespace pw_reset_api.Repositories
                             //cmd.Parameters.AddRange(parameters);
                             int r = cmd.ExecuteNonQuery();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return false;
                         }
                     }
@@ -298,6 +328,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return false;
             }
             return true;
@@ -313,6 +344,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -330,11 +362,14 @@ namespace pw_reset_api.Repositories
                             break;
                         }
                         reader.Dispose();
+                        dbConnection.Close();
+                        _logger.LogInformation("oracle connection closed.");
                     }
                 }
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return null;
             }
             return userResetPwdInfo;
@@ -348,6 +383,7 @@ namespace pw_reset_api.Repositories
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
                 {
                     dbConnection.Open();
+                    _logger.LogInformation("oracle connection opened.");
                 }
                 if (dbConnection.State == System.Data.ConnectionState.Open)
                 {
@@ -374,9 +410,11 @@ namespace pw_reset_api.Repositories
                             cmd.Parameters.AddRange(parameters);
                             int r = cmd.ExecuteNonQuery();
                             dbConnection.Close();
+                            _logger.LogInformation("oracle connection closed.");
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex, ex.Message, null);
                             return;
                         }
                     }
@@ -384,6 +422,7 @@ namespace pw_reset_api.Repositories
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message, null);
                 return;
             }
             return;
@@ -392,7 +431,9 @@ namespace pw_reset_api.Repositories
         private OracleConnection GetConnection()
         {
             var connectionString = configuration.GetSection("ConnectionStrings").GetSection("UserConnection").Value;
+            _logger.LogDebug("create connection" + connectionString);
             var conn = new Oracle.ManagedDataAccess.Client.OracleConnection(connectionString);
+            _logger.LogInformation("oracle connection created.");
             return conn;
         }
     }

@@ -30,6 +30,12 @@ namespace pw_reset_api
             services.AddTransient<IOracleUserRepository, OracleUserRepository>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddLogging(config =>
+            //{
+            //    config.AddDebug();
+            //    config.AddConsole();
+            //    //etc
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
