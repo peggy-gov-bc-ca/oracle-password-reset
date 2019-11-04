@@ -9,3 +9,7 @@ pw-reset-web/obj
 
 
 HTMLPage1.html
+
+.devcontainer/devcontainer.json
+
+.devcontainer/docker-compose.yml

@@ -9,24 +9,31 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using common;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace pw_reset_web.Pages
 {
     public class ResetPasswordModel : PageModel
     {
-        public ResetPasswordModel()
+        private readonly ILogger _logger;
+        public ResetPasswordModel(ILogger<ResetPasswordModel> logger)
         {
+            this._logger = logger;
         }
 
         //public IActionResult OnGet()
-        public async Task<IActionResult> OnGet()
+        //public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
             userResetPwdModel = new UserResetPwdModel();
             byte[] bytes;
+            _logger.LogInformation("get username value from session");
             HttpContext.Session.TryGetValue("_username", out bytes);
             if (bytes != null)
             {
                 userResetPwdModel.UserName = Encoding.ASCII.GetString(bytes);
+                _logger.LogInformation("get username value from session"+userResetPwdModel.UserName);
+                _logger.LogInformation(userResetPwdModel.ToString());
                 return Page();
             }
             else 
@@ -41,8 +48,10 @@ namespace pw_reset_web.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            _logger.LogInformation("Post from page");
             if (!ModelState.IsValid)
             {
+                _logger.LogInformation("ModelState is not valid.");
                 return Page();
             }
 
@@ -51,6 +60,7 @@ namespace pw_reset_web.Pages
             {
                 client.BaseAddress = new Uri(Constants.API_BASE_URL);
                 UserResetPwdInfo userResetPwdInfo = userResetPwdModel.ToInfo();
+                _logger.LogInformation("Call DoResetPwd.");
                 using (var response = await client.PostAsJsonAsync<UserResetPwdInfo>("DoResetPwd", userResetPwdInfo))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();

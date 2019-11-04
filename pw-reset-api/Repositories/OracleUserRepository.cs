@@ -348,8 +348,8 @@ namespace pw_reset_api.Repositories
                             //                 new OracleParameter("username",username),
                             //                 new OracleParameter("password", password)
                             //          };
-
                             //cmd.Parameters.AddRange(parameters);
+                            _logger.LogInformation("execute change oracle user password command.");
                             int r = cmd.ExecuteNonQuery();
                             dbConnection.Close();
                             _logger.LogInformation("oracle connection closed.");

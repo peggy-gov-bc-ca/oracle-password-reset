@@ -29,7 +29,7 @@ services:
   database:
     image: store/oracle/database-enterprise:12.2.0.1
     volumes:
-      - /home/oracle/oradata:/opt/oracle/oradata # persistent oracle database data.
+      - /opt/oracle/oradata # persistent oracle database data.
     environment:
       ORACLE_PWD: F1abcd@test
     networks: 
