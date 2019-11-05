@@ -27,9 +27,20 @@ services:
       - pw-reset
 
   database:
-    image: store/oracle/database-enterprise:12.2.0.1
+    build:
+        context: https://github.com/oracle/docker-images/tree/master/OracleDatabase/SingleInstance/dockerfiles/12.2.0.1
+        dockerfile: Dockerfile.ee
+    #build:
+    #  context: .
+    #  dockerfile: ./scripts/oracle.dockerfile 
     volumes:
+      #- ./scripts:/docker-entrypoint-initdb.d/startup
+      #- ./scripts:/opt/oracle/scripts/
+      - ./scripts:/opt/oracle/scripts/setup
+      #- .\scripts\01_createUser.sql:/docker-entrypoint-initdb.d/01_createUser.sql
       - /opt/oracle/oradata # persistent oracle database data.
+    #command: ["/u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus","system/test123@orclcdb","@/opt/oracle/scripts/startup/01CreateUser.sql"]
+    #command: ["/opt/oracle/scripts/startup.sh"]
     environment:
       ORACLE_PWD: F1abcd@test
     networks: 

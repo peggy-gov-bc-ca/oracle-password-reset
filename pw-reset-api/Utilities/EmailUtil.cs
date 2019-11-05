@@ -13,7 +13,7 @@ namespace pw_reset_api.Utilities
     {
         public static bool SendEmail(string emailAddr, string content)
         {
-            return true;
+            //return true;
             try
             {
                 // Credentials
