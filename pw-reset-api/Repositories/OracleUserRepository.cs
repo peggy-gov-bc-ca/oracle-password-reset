@@ -470,7 +470,6 @@ namespace pw_reset_api.Repositories
             _logger.LogDebug("create connection" + connectionString);
             var conn = new Oracle.ManagedDataAccess.Client.OracleConnection(connectionString);
             _logger.LogInformation("oracle connection created.");
-            //ConfigOracle();
             return conn;
         }
     }
