@@ -89,6 +89,7 @@ namespace pw_reset_api.Controllers
             if (IsRegistered(usernameEmail.UserName))
             {
                 string emailAddr = GetEmailAddress(usernameEmail.UserName);
+                usernameEmail.EmailAddr = emailAddr;
                 if (SendVerifyCode(usernameEmail))
                 {
                     result.resultCode = ResultCode.SUCCESS;
@@ -236,9 +237,11 @@ namespace pw_reset_api.Controllers
                 + " ."
                 + " Please note that this recovery code will expire at "
                 + expireTime
-                + "(5 minutes from your reset request).</p>";
-            return EmailUtil.SendEmail(usernameEmail.EmailAddr, content);
-            
+                + "(5 minutes from your reset request).</p><br/><br/>"
+                + "Sierra System";
+            //EmailUtil.SendEmailWithGoogle(usernameEmail.EmailAddr, content);
+            EmailUtil.SendEmailAsyncWithSendGrid(usernameEmail.EmailAddr, content);
+            return true;
         }
 
         private void AddInfoToAudit(string username, ApiResult result, string action)

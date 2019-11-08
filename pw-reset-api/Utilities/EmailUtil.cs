@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,7 +13,7 @@ namespace pw_reset_api.Utilities
 {
     public class EmailUtil
     {
-        public static bool SendEmail(string emailAddr, string content)
+        public static bool SendEmailWithGoogle(string emailAddr, string content)
         {
             //return true;
             try
@@ -22,7 +24,7 @@ namespace pw_reset_api.Utilities
                 // Mail message
                 var mail = new MailMessage()
                 {
-                    From = new MailAddress("190728@nttdata.com"),
+                    From = new MailAddress("peggy.zhang@nttdata.com"),
                     Subject = "Oracle Password Reset Verification Code",
                     Body = content
                 };
@@ -51,6 +53,22 @@ namespace pw_reset_api.Utilities
                 return false;
             }
 
+        }
+
+        public static async Task<bool> SendEmailAsyncWithSendGrid(string emailAddr, string content)
+        {
+            string apiKey = "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";
+            SendGridClient client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("support@sierrasystem.com", "Support Team"),
+                Subject = "Oracle Server Password Reset - Verification Code",
+                PlainTextContent = content,
+                HtmlContent = content
+            };
+            msg.AddTo(new EmailAddress(emailAddr, "Peggy"));
+            var response = await client.SendEmailAsync(msg);
+            return true;     
         }
     }    
 }

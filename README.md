@@ -33,3 +33,10 @@ echo exit | sqlplus C##ORACLE/123456@localhost/ORCLCDB.localdomain @02_createTab
 ```
 
 11. Then you can start browser to visit localhost:5050
+
+
+SendGrid setup
+key name: oraclePasswordReset
+key: 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
+Account username: SierraSystem
+Password: sierrasystem8
