@@ -19,12 +19,12 @@ namespace pw_reset_api.Utilities
             try
             {
                 // Credentials
-                var credentials = new NetworkCredential("peggy.00.zhang@gmail.com", "Zhg_740817");
+                var credentials = new NetworkCredential("gmail address", "password");
 
                 // Mail message
                 var mail = new MailMessage()
                 {
-                    From = new MailAddress("peggy.zhang@nttdata.com"),
+                    From = new MailAddress("ntt address"),
                     Subject = "Oracle Password Reset Verification Code",
                     Body = content
                 };
