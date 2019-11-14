@@ -239,8 +239,8 @@ namespace pw_reset_api.Controllers
                 + expireTime
                 + "(5 minutes from your reset request).</p><br/><br/>"
                 + "Sierra System";
-            //EmailUtil.SendEmailWithGoogle(usernameEmail.EmailAddr, content);
-            EmailUtil.SendEmailAsyncWithSendGrid(usernameEmail.EmailAddr, content);
+            EmailUtil.SendEmailWithGoogle(usernameEmail.EmailAddr, content);
+            //EmailUtil.SendEmailAsyncWithSendGrid(usernameEmail.EmailAddr, content);
             return true;
         }
 
