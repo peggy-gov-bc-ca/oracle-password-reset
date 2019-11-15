@@ -25,7 +25,7 @@ namespace pw_reset_api.Utilities
                 // Mail message
                 var mail = new MailMessage()
                 {
-                    From = new MailAddress("ntt address"),
+                    From = new MailAddress(Constants.EMAIL_ADDRESS),
                     Subject = "Oracle Password Reset Verification Code",
                     Body = content
                 };
