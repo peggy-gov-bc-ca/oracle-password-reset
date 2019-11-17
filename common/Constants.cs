@@ -18,7 +18,7 @@ namespace common
         public static string HOST_NAME = "localhost";
         public static int VERIFY_CODE_VALID_MINS = 5;
         
-        public static string EMAIL_ADDRESS = "gmail email account";
-        public static string EMAIL_PASSWORD = "gmail password";
+        public static string EMAIL_ADDRESS = "sierranttsystem@gmail.com";
+        public static string EMAIL_PASSWORD = "Sierra0812";
     }
 }
