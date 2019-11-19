@@ -16,6 +16,7 @@ services:
   pw-reset-api:
     build:
       context: .
+      dockerfile: ./ApiDockerfile
       args:
         PROJECT_NAME: pw-reset-api
     environment:
