@@ -31,6 +31,7 @@ echo exit | sqlplus sys/Oradoc_db1@localhost/ORCLCDB.localdomain as sysdba @01_c
 ```bash
 echo exit | sqlplus C##ORACLE/123456@localhost/ORCLCDB.localdomain @02_createTable.sql
 ```
+////////////////////following do not need to do///////////////////////////////////
 11. start another powershell
 12. input
 ```bash
@@ -81,6 +82,7 @@ hostname=container id
 #FromLineOverride=YES
 ```
 18. put the modified ssmtp.conf to api container etc/ssmtp/ssmtp.conf (override the old one
+/////////////////////////////////////////////////////////////
 
 11. Then you can start browser to visit localhost:5050
 
