@@ -13,12 +13,14 @@ services:
     networks: 
       - pw-reset
   
-  pw-reset-api:
+ pw-reset-api:
     build:
-      context: .
       dockerfile: ./ApiDockerfile
+      context: .
       args:
         PROJECT_NAME: pw-reset-api
+    volumes:
+      - .\ssmtp.conf:/ssmtp.conf
     environment:
       ASPNETCORE_ENVIRONMENT: Development
     ports:
