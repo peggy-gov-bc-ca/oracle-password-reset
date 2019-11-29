@@ -13,7 +13,7 @@ services:
     networks: 
       - pw-reset
   
- pw-reset-api:
+  pw-reset-api:
     build:
       dockerfile: ./ApiDockerfile
       context: .
