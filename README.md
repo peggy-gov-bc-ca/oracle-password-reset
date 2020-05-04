@@ -20,7 +20,7 @@ Simple Proof-of-Concept application to allow users with a web interface to chang
 
 7. Then run `docker exec -it oracle-password-reset_database_1 /bin/bash` to enter the shell of the DB container.
 
-8.Run `echo exit | sqlplus sys/Oradoc_db1@localhost/ORCLCDB.localdomain as sysdba @01_createUser.sql` to execute the createUser script. If this does not work, you may try running the script manually by doing the following from within the container:
+8. Run `echo exit | sqlplus sys/Oradoc_db1@localhost/ORCLCDB.localdomain as sysdba @01_createUser.sql` to execute the createUser script. If this does not work, you may try running the script manually by doing the following from within the container:
 - Run `sqlplus`.
 - Login with username as `sys as sysdba`.
 - Password will be `Oradoc_db1`.
