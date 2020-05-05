@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  ecrc-frontend:
+    container_name: pwreset-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/pwreset-frontend"
+      - "/node_modules"
+    ports:
+      - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
