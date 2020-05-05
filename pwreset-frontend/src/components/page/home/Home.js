@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "../page.css";
 import Header from "../../base/header/Header";
 import Footer from "../../base/footer/Footer";
@@ -16,3 +17,11 @@ export default function Home({ page: { header } }) {
     </main>
   );
 }
+
+Home.propTypes = {
+  page: PropTypes.shape({
+    header: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
+};

@@ -2,9 +2,8 @@ import React from "react";
 import { create } from "react-test-renderer";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { render, fireEvent, getAllByRole, wait } from "@testing-library/react";
 
-import Header, { goHome } from "./Header";
+import Header from "./Header";
 
 describe("Header Component", () => {
   const header = {
